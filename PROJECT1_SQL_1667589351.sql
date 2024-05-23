@@ -1,13 +1,10 @@
-/* Business model Customer to Customer (C2C) allows customers to do business with each other.
-This model is growing fast with e-commerce platforms where sellers may be required to pay some amount and
-buyer can buy it without paying anything. E-Commerce website brings the seller and buyer to the same platform. 
-
+/* 
 Analyzing the user's database will lead to understanding the business perspective.
 Behaviour of the users can be traced in terms of business with exploration of the user’s database. 
 
 Dataset: One .csv file with name users_data with 98913 rows and 27 columns
 
-Tasks to be performed
+*Tasks to be performed*
 
 Create new schema as ecommerce
 Import .csv file users_data into MySQL
@@ -36,27 +33,27 @@ Display the number of male users of each country at ecommerce platform.
 Calculate the average number of products sold and bought on ecommerce platform by male users for each country
 */
 
--- Ques1
+-- Task1
 CREATE DATABASE ecommerce;
 USE ecommerce;
 
--- Ques2
+-- Task2
 -- data imported
 SELECT * FROM users_data;
 
--- Ques3
+-- Task3
 DESC users_data;
 
--- Ques4 
+-- Task4 
 SELECT * FROM users_data LIMIT 100;
 
--- Ques5 
+-- Task5 
 SELECT COUNT(DISTINCT country) Distinct_country, COUNT(DISTINCT language) Distinct_language FROM users_data;
 
--- Ques6
+-- Task6
 SELECT SUM(socialNbFollowers) Total_Followers, gender FROM users_data GROUP BY gender;
 
--- Ques7
+-- Task7
 -- a. 
 	SELECT COUNT(*) Has_ProfilePic FROM users_data WHERE hasProfilePicture = 'TRUE';
 -- b.
@@ -66,45 +63,45 @@ SELECT SUM(socialNbFollowers) Total_Followers, gender FROM users_data GROUP BY g
 -- d.
 	SELECT COUNT(*) Has_IosApp FROM users_data WHERE hasIosApp = 'TRUE';
     
--- Ques8
+-- Task8
 SELECT country, COUNT(country) Total_buyers FROM users_data WHERE productsBought >= 1 GROUP BY country ORDER BY Total_buyers DESC;
 
--- Ques9
+-- Task9
 SELECT country, COUNT(country) Total_seller FROM users_data WHERE productsSold >= 1 GROUP BY country ORDER BY Total_seller ASC;
 
--- Ques10
+-- Task10
 SELECT country, MAX(productsPassRate) PassRate FROM users_data GROUP BY country ORDER BY PassRate DESC LIMIT 10;
 
--- Ques11
+-- Task11
 SELECT language, COUNT(language) Total_Users FROM users_data GROUP BY language;
 
--- Ques12
+-- Task12
 SELECT 'Products_liked', COUNT(socialProductsLiked) FROM users_data WHERE gender='F' AND socialProductsLiked > 0
 UNION
 SELECT 'Products_wished', COUNT(productsWished) FROM users_data WHERE gender='F' AND productsWished > 0 ;
 
--- Ques13
+-- Task13
 SELECT 'Seller', COUNT(productsSold) FROM users_data WHERE gender='M' AND productsSold > 0
 UNION 
 SELECT 'Buyer', COUNT(productsBought) FROM users_data WHERE gender='M' AND productsBought > 0 ;
 
--- Ques14
+-- Task14
 SELECT country, COUNT(productsBought) Total_users FROM users_data WHERE productsBought>=1 GROUP BY country ORDER BY Total_users DESC LIMIT 1;
 
--- Ques15
+-- Task15
 SELECT country, productsSold FROM users_data WHERE productsSold=0 GROUP BY country LIMIT 10;
 
--- Ques16
+-- Task16
 SELECT identifierHash FROM users_data ORDER BY daysSinceLastLogin LIMIT 110;
 
--- Ques17
+-- Task17
 SELECT identifierHash FROM users_data WHERE gender = 'F' AND daysSinceLastLogin >= 100 ORDER BY daysSinceLastLogin;
 
--- Ques18
+-- Task18
 SELECT country, COUNT(gender) Female_Users FROM users_data WHERE gender='F' GROUP BY country;
 
--- Ques19
+-- Task19
 SELECT country, COUNT(gender) Male_Users FROM users_data WHERE gender='M' GROUP BY country;
 
--- Ques20
+-- Task20
 SELECT country, AVG(productsSold), AVG(productsBought) FROM users_data WHERE gender='M' GROUP BY country;
